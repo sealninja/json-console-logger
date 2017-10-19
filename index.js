@@ -28,8 +28,8 @@ const toJSON = (level, ...values) => {
 
 module.exports = {
   toJSON,
-  log: () => console.log(toJSON('log', arguments)),
-  info: () => console.info(toJSON('info', arguments)),
-  warn: () => console.warn(toJSON('warn', arguments)),
-  error: () => console.error(toJSON('error', arguments)),
+  log: (...values) => console.log(toJSON('log', ...values)),
+  info: (...values) => console.info(toJSON('info', ...values)),
+  warn: (...values) => console.warn(toJSON('warn', ...values)),
+  error: (...values) => console.error(toJSON('error', ...values)),
 };
