@@ -1,7 +1,7 @@
 /* eslint no-console: "off" */
 
 const parseValue = (value) => {
-  if (typeof value === 'object' && value.constructor.name.endsWith('Error')) {
+  if (value && typeof value === 'object' && value.constructor.name.endsWith('Error')) {
     return {
       error: value.constructor.name,
       message: value.message,
