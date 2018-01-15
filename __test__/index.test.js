@@ -47,5 +47,15 @@ const logger = require('../index');
       genericExpect(result);
       expect(result).toEqual(expect.stringContaining('"msg":["a string",{"error":"RangeError","message":"a range error","stack":'));
     });
+
+    test('string + custom error', () => {
+      const error = new Error('custom error');
+      error.status = 400;
+      error.response = { text: 'bad request error' };
+      const result = logger.toJSON(level, 'a string', error);
+      genericExpect(result);
+      expect(result).toEqual(expect.stringContaining('"msg":["a string",{"error":"Error","message":"custom error","stack":'));
+      expect(result).toEqual(expect.stringContaining('"status":"400","response":"{\\"text\\":\\"bad request error\\"}"'));
+    });
   });
 });
