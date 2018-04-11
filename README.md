@@ -28,6 +28,20 @@ logger.error('a string', new Error('an error'));
 // => console.error('{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}],"timestamp":"2017-10-19T13:17:05.065Z"}');
 ```
 
+## Callbacks
+
+```javascript
+import logger from 'json-console-logger';
+
+logger.on('error', (message) => {
+  // do something
+});
+
+logger.log('a callback string');
+// => console.error('{"level":"ERROR","message":"a callback string","timestamp":"2017-10-19T13:17:05.065Z"}');
+// => error handler will be called with "a callback string" as argument
+```
+
 [version-image]: https://img.shields.io/npm/v/json-console-logger.svg
 
 [npm-url]: https://npmjs.org/package/json-console-logger
