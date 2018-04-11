@@ -1,5 +1,7 @@
 /* eslint no-console: "off" */
 
+const callbacks = {};
+
 const parseValue = (value) => {
   if (value && typeof value === 'object' && value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
     const error = {
@@ -15,25 +17,36 @@ const parseValue = (value) => {
   return value;
 };
 
-const toJSON = (level, ...values) => {
-  let msg = '';
+const logJSON = (level, ...values) => {
+  let message = '';
   if (values.length === 1) {
-    msg = parseValue(values[0]);
+    message = parseValue(values[0]);
   }
   if (values.length > 1) {
-    msg = values.map(v => parseValue(v));
+    message = values.map(v => parseValue(v));
   }
-  return JSON.stringify({
+  const json = JSON.stringify({
     level: level.toUpperCase(),
-    msg,
+    message,
     timestamp: new Date().toISOString(),
   });
+  console[level](json);
+  if (callbacks[level]) {
+    callbacks[level](message);
+  }
+  return json;
+};
+
+const on = (level, callback) => {
+  if (typeof callback === 'function') {
+    callbacks[level] = callback;
+  }
 };
 
 module.exports = {
-  toJSON,
-  log: (...values) => console.log(toJSON('log', ...values)),
-  info: (...values) => console.info(toJSON('info', ...values)),
-  warn: (...values) => console.warn(toJSON('warn', ...values)),
-  error: (...values) => console.error(toJSON('error', ...values)),
+  on,
+  log: (...values) => logJSON('log', ...values),
+  info: (...values) => logJSON('info', ...values),
+  warn: (...values) => logJSON('warn', ...values),
+  error: (...values) => logJSON('error', ...values),
 };
