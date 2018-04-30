@@ -1,6 +1,6 @@
 {
   "name": "json-console-logger",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Super light-weight stand-in replacement for console.log to only output JSON",
   "main": "index.js",
   "scripts": {
