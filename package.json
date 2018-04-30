@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JSxMachina/json-console-logger.git"
+    "url": "git+https://github.com/gerbenmeyer/json-console-logger.git"
   },
   "files": [
     "index.js"
@@ -18,13 +18,13 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JSxMachina/json-console-logger/issues"
+    "url": "https://github.com/gerbenmeyer/json-console-logger/issues"
   },
-  "homepage": "https://github.com/JSxMachina/json-console-logger#readme",
+  "homepage": "https://github.com/gerbenmeyer/json-console-logger#readme",
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "husky": "^0.14.3",
