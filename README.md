@@ -37,9 +37,9 @@ logger.on('error', (message) => {
   // do something
 });
 
-logger.log('a callback string');
-// => console.error('{"level":"ERROR","message":"a callback string","timestamp":"2017-10-19T13:17:05.065Z"}');
-// => error handler will be called with "a callback string" as argument
+logger.error('an error string');
+// => console.error('{"level":"ERROR","message":"an error string","timestamp":"2017-10-19T13:17:05.065Z"}');
+// => error handler will be called with "an error string" as argument
 ```
 
 [version-image]: https://img.shields.io/npm/v/json-console-logger.svg
