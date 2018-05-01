@@ -15,8 +15,8 @@
   "files": [
     "index.js"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Gerben Meyer",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/gerbenmeyer/json-console-logger/issues"
   },
