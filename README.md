@@ -1,7 +1,9 @@
-# json-console-logger
+# JSON Console Logger
 Super light-weight stand-in replacement for console.log to only output JSON
 
-[![NPM version][version-image]][npm-url]
+[![NPM version](https://img.shields.io/npm/v/json-console-logger.svg?style=flat-square)](https://npmjs.org/package/json-console-logger)
+[![Downloads](https://img.shields.io/npm/dm/json-console-logger.svg?style=flat-square)](https://npmjs.org/package/json-console-logger)
+[![Dependency Status](https://img.shields.io/david/sealninja/json-console-logger?style=flat-square)](https://david-dm.org/sealninja/json-console-logger)
 
 ## Installation
 
@@ -45,3 +47,9 @@ logger.error('an error string');
 [version-image]: https://img.shields.io/npm/v/json-console-logger.svg
 
 [npm-url]: https://npmjs.org/package/json-console-logger
+
+## License
+
+MIT
+
+<a href="https://sealninja.com"><img src="https://sealninja.com/assets/badge.png" alt="Sealninja" height="96"></a>

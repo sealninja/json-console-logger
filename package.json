@@ -10,17 +10,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gerbenmeyer/json-console-logger.git"
+    "url": "git+https://github.com/sealninja/json-console-logger.git"
   },
   "files": [
     "index.js"
   ],
-  "author": "Gerben Meyer",
+  "keywords": [
+    "javascript",
+    "console",
+    "log",
+    "json"
+  ],
+  "author": "Sealninja",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gerbenmeyer/json-console-logger/issues"
+    "url": "https://github.com/sealninja/json-console-logger/issues"
   },
-  "homepage": "https://github.com/gerbenmeyer/json-console-logger#readme",
+  "homepage": "https://sealninja.com",
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
