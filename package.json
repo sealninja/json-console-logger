@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint --ignore-path .gitignore --fix *.js ./**/*.js",
-    "precommit": "npm run lint && npm test"
+    "lint": "eslint --ignore-path .gitignore --fix *.js ./**/*.js"
   },
   "husky": {
     "hooks": {
