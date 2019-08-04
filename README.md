@@ -1,5 +1,5 @@
 # JSON Console Logger
-Super light-weight stand-in replacement for console.log to only output JSON
+Super light-weight stand-in replacement for console logging to only output JSON
 
 [![NPM version](https://img.shields.io/npm/v/json-console-logger.svg?style=flat-square)](https://npmjs.org/package/json-console-logger)
 [![Downloads](https://img.shields.io/npm/dm/json-console-logger.svg?style=flat-square)](https://npmjs.org/package/json-console-logger)

@@ -1,7 +1,7 @@
 {
   "name": "json-console-logger",
   "version": "1.0.0",
-  "description": "Super light-weight stand-in replacement for console.log to only output JSON",
+  "description": "Super light-weight stand-in replacement for console logging to only output JSON",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -23,7 +23,7 @@
   "keywords": [
     "javascript",
     "console",
-    "log",
+    "logging",
     "json"
   ],
   "author": "Sealninja",
