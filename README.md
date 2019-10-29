@@ -7,7 +7,9 @@ Super light-weight stand-in replacement for console logging to only output JSON
 
 ## Installation
 
-`npm i json-console-logger --save`
+```
+npm install json-console-logger --save
+```
 
 ## Usage
 

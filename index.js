@@ -23,7 +23,7 @@ const logJSON = (level, ...values) => {
     message = parseValue(values[0]);
   }
   if (values.length > 1) {
-    message = values.map(v => parseValue(v));
+    message = values.map((v) => parseValue(v));
   }
   const json = JSON.stringify({
     level: level.toUpperCase(),
