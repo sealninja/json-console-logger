@@ -58,7 +58,7 @@ const logger = require('../index');
       expect(result).toEqual(expect.stringContaining('"status":"400","response":"{\\"text\\":\\"bad request error\\"}"'));
     });
 
-    test('callback', () => {
+    test('callback string', () => {
       let callbackMessage;
       logger.on(level, (message) => {
         callbackMessage = message;

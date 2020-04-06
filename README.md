@@ -17,19 +17,19 @@ npm install json-console-logger --save
 import logger from 'json-console-logger';
 
 logger.log('a string');
-// => console.log('{"level":"LOG","message":"a string","timestamp":"2017-10-19T13:17:05.065Z"}');
+// => console.log('{"level":"LOG","message":"a string","timestamp":"2020-01-01T13:17:05.065Z"}');
 
 logger.log('a string', 'another string');
-// => console.log('{"level":"LOG","message":["a string","another string"],"timestamp":"2017-10-19T13:17:05.065Z"}');
+// => console.log('{"level":"LOG","message":["a string","another string"],"timestamp":"2020-01-01T13:17:05.065Z"}');
 
 logger.info('a string', { an: 'object' });
-// => console.info('{"level":"INFO","message":["a string",{"an":"object"}],"timestamp":"2017-10-19T13:17:05.065Z"}');
+// => console.info('{"level":"INFO","message":["a string",{"an":"object"}],"timestamp":"2020-01-01T13:17:05.065Z"}');
 
 logger.warn('a string', ['an', 'array']);
-// => console.warn('{"level":"WARN","message":["a string",["an","array"]],"timestamp":"2017-10-19T13:17:05.065Z"}');
+// => console.warn('{"level":"WARN","message":["a string",["an","array"]],"timestamp":"2020-01-01T13:17:05.065Z"}');
 
 logger.error('a string', new Error('an error'));
-// => console.error('{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}],"timestamp":"2017-10-19T13:17:05.065Z"}');
+// => console.error('{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}],"timestamp":"2020-01-01T13:17:05.065Z"}');
 ```
 
 ## Callbacks
@@ -42,8 +42,12 @@ logger.on('error', (message) => {
 });
 
 logger.error('an error string');
-// => console.error('{"level":"ERROR","message":"an error string","timestamp":"2017-10-19T13:17:05.065Z"}');
-// => error handler will be called with "an error string" as argument
+// => console.error('{"level":"ERROR","message":"an error string","timestamp":"2020-01-01T13:17:05.065Z"}');
+// => callback will be called with "an error string" as argument
+
+logger.error('a string', new Error('an error'));
+// => console.error('{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}],"timestamp":"2020-01-01T13:17:05.065Z"}');
+// => callback will be called with ["a string",{"error":"Error","message":"an error","stack":"..."}] as argument
 ```
 
 [version-image]: https://img.shields.io/npm/v/json-console-logger.svg
@@ -53,5 +57,3 @@ logger.error('an error string');
 ## License
 
 MIT
-
-<a href="https://sealninja.com"><img src="https://sealninja.com/assets/badge.png" alt="Sealninja" height="96"></a>
