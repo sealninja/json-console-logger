@@ -3,14 +3,20 @@
 const callbacks = {};
 
 const parseValue = (value) => {
-  if (value && typeof value === 'object' && value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
+  if (
+    value
+    && typeof value === 'object'
+    && value.constructor
+    && value.constructor.name
+    && value.constructor.name.endsWith('Error')
+  ) {
     const error = {
       error: value.constructor.name,
       message: value.message,
       stack: value.stack,
     };
     Object.keys(value).forEach((key) => {
-      error[key] = JSON.stringify(value[key]);
+      error[key] = value[key];
     });
     return error;
   }
