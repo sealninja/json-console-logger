@@ -66,5 +66,12 @@ const logger = require('../index');
       logger[level]('a callback string');
       expect(callbackMessage).toEqual('a callback string');
     });
+
+    test('logging off', () => {
+      logger.setLogging({ [level]: false });
+      const result = logger[level]('a string');
+      expect(result).toBeFalsy();
+      logger.setLogging({ [level]: true });
+    });
   });
 });

@@ -2,6 +2,13 @@
 
 const callbacks = {};
 
+let settings = {
+  log: true,
+  info: true,
+  warn: true,
+  error: true,
+};
+
 const parseValue = (value) => {
   if (
     value
@@ -24,6 +31,8 @@ const parseValue = (value) => {
 };
 
 const logJSON = (level, ...values) => {
+  if (!settings[level]) return null;
+
   let message = '';
   if (values.length === 1) {
     message = parseValue(values[0]);
@@ -51,6 +60,7 @@ const on = (level, callback) => {
 
 module.exports = {
   on,
+  setLogging: (newSettings) => { settings = { ...settings, ...newSettings }; },
   log: (...values) => logJSON('log', ...values),
   info: (...values) => logJSON('info', ...values),
   warn: (...values) => logJSON('warn', ...values),

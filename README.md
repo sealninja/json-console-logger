@@ -50,9 +50,30 @@ logger.error('a string', new Error('an error'));
 // => callback will be called with ["a string",{"error":"Error","message":"an error","stack":"..."}] as argument
 ```
 
+## Disable log levels
+
+```javascript
+import logger from 'json-console-logger';
+
+logger.setLogging({ log: false, info: false });
+
+logger.log('a string');
+// => logs nothing
+
+logger.info('a string');
+// => logs nothing
+
+logger.warn('an warn string');
+// => console.error('{"level":"WARN","message":"an warn string","timestamp":"2020-01-01T13:17:05.065Z"}');
+
+logger.error('an error string');
+// => console.error('{"level":"ERROR","message":"an error string","timestamp":"2020-01-01T13:17:05.065Z"}');
+```
+
 [version-image]: https://img.shields.io/npm/v/json-console-logger.svg
 
 [npm-url]: https://npmjs.org/package/json-console-logger
+
 
 ## License
 
