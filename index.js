@@ -50,7 +50,6 @@ const logJSON = (level, ...values) => {
   if (callbacks[level]) {
     callbacks[level](message);
   }
-  return json;
 };
 
 const on = (level, callback) => {
