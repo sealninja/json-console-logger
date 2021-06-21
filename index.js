@@ -44,7 +44,7 @@ const logJSON = (level, ...values) => {
   const json = JSON.stringify({
     level: level.toUpperCase(),
     message,
-    timestamp: new Date().toISOString(),
+    // timestamp: new Date().toISOString(),
   });
   configuration.logger(json);
   if (callbacks[level]) {
