@@ -8,7 +8,6 @@ let configuration = {
   warn: true,
   error: true,
   logger: console.log,
-  suffix: '',
 };
 
 const parseValue = (value) => {
@@ -47,7 +46,7 @@ const logJSON = (level, ...values) => {
     message,
     timestamp: new Date().toISOString(),
   });
-  configuration.logger(json + configuration.suffix);
+  configuration.logger(json);
   if (callbacks[level]) {
     callbacks[level](message);
   }

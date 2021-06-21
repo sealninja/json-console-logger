@@ -75,7 +75,7 @@ logger.error('an error string');
 ```javascript
 import logger from 'json-console-logger';
 
-logger.setConfiguration({ logger: process.stdout.write, suffix: '\n' });
+logger.setConfiguration({ logger: (msg) => process.stdout.write(`${msg}\n`) });
 
 logger.log('a string');
 // => process.stdout.write('{"level":"LOG","message":"a string","timestamp":"2020-01-01T13:17:05.065Z"}\n');
