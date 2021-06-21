@@ -17,19 +17,19 @@ npm install json-console-logger --save
 import logger from 'json-console-logger';
 
 logger.log('a string');
-// => console.log('{"level":"LOG","message":"a string","timestamp":"2020-01-01T13:17:05.065Z"}');
+// => console.log('{"level":"LOG","message":"a string"}');
 
 logger.log('a string', 'another string');
-// => console.log('{"level":"LOG","message":["a string","another string"],"timestamp":"2020-01-01T13:17:05.065Z"}');
+// => console.log('{"level":"LOG","message":["a string","another string"]}');
 
 logger.info('a string', { an: 'object' });
-// => console.info('{"level":"INFO","message":["a string",{"an":"object"}],"timestamp":"2020-01-01T13:17:05.065Z"}');
+// => console.info('{"level":"INFO","message":["a string",{"an":"object"}]}');
 
 logger.warn('a string', ['an', 'array']);
-// => console.warn('{"level":"WARN","message":["a string",["an","array"]],"timestamp":"2020-01-01T13:17:05.065Z"}');
+// => console.warn('{"level":"WARN","message":["a string",["an","array"]]}');
 
 logger.error('a string', new Error('an error'));
-// => console.error('{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}],"timestamp":"2020-01-01T13:17:05.065Z"}');
+// => console.error('{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}]}');
 ```
 
 ## Callbacks
@@ -42,12 +42,12 @@ logger.on('error', (message) => {
 });
 
 logger.error('an error string');
-// => console.error('{"level":"ERROR","message":"an error string","timestamp":"2020-01-01T13:17:05.065Z"}');
-// => callback will be called with "an error string" as argument
+// => console.error('{"level":"ERROR","message":"an error string"}');
+// => callback will be called with '{"level":"ERROR","message":"an error string"}' as argument
 
 logger.error('a string', new Error('an error'));
-// => console.error('{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}],"timestamp":"2020-01-01T13:17:05.065Z"}');
-// => callback will be called with ["a string",{"error":"Error","message":"an error","stack":"..."}] as argument
+// => console.error('{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}]}');
+// => callback will be called with '{"level":"ERROR","message":["a string",{"error":"Error","message":"an error","stack":"..."}]}' as argument
 ```
 
 ## Disable log levels
@@ -64,10 +64,10 @@ logger.info('a string');
 // => logs nothing
 
 logger.warn('an warn string');
-// => console.error('{"level":"WARN","message":"an warn string","timestamp":"2020-01-01T13:17:05.065Z"}');
+// => console.error('{"level":"WARN","message":"an warn string"}');
 
 logger.error('an error string');
-// => console.error('{"level":"ERROR","message":"an error string","timestamp":"2020-01-01T13:17:05.065Z"}');
+// => console.error('{"level":"ERROR","message":"an error string"}');
 ```
 
 ## Other output than `console.log`
@@ -78,7 +78,7 @@ import logger from 'json-console-logger';
 logger.setConfiguration({ logger: (msg) => process.stdout.write(`${msg}\n`) });
 
 logger.log('a string');
-// => process.stdout.write('{"level":"LOG","message":"a string","timestamp":"2020-01-01T13:17:05.065Z"}\n');
+// => process.stdout.write('{"level":"LOG","message":"a string"}\n');
 ```
 
 [version-image]: https://img.shields.io/npm/v/json-console-logger.svg

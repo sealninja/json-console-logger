@@ -48,8 +48,9 @@ const logJSON = (level, ...values) => {
   });
   configuration.logger(json);
   if (callbacks[level]) {
-    callbacks[level](message);
+    callbacks[level](json);
   }
+  return json;
 };
 
 const on = (level, callback) => {

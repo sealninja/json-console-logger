@@ -2,13 +2,14 @@
 
 const logger = require('../index');
 
+logger.setConfiguration({ logger: () => {} });
+
 ['log', 'info', 'warn', 'error'].forEach((level) => {
   describe(level, () => {
     const expectAllProperties = (result) => {
       expect(JSON.parse(result)).toBeTruthy();
       expect(JSON.parse(result)).toHaveProperty('level');
       expect(JSON.parse(result)).toHaveProperty('message');
-      expect(JSON.parse(result)).toHaveProperty('timestamp');
       expect(result).toEqual(expect.stringContaining(`"level":"${level.toUpperCase()}"`));
     };
 
@@ -64,7 +65,7 @@ const logger = require('../index');
         callbackMessage = message;
       });
       logger[level]('a callback string');
-      expect(callbackMessage).toEqual('a callback string');
+      expect(callbackMessage).toEqual(expect.stringContaining('"message":"a callback string"'));
     });
 
     test('logging off', () => {
