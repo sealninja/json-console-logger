@@ -2,11 +2,13 @@
 
 const callbacks = {};
 
-let settings = {
+let configuration = {
   log: true,
   info: true,
   warn: true,
   error: true,
+  logger: console.log,
+  suffix: '',
 };
 
 const parseValue = (value) => {
@@ -31,7 +33,7 @@ const parseValue = (value) => {
 };
 
 const logJSON = (level, ...values) => {
-  if (!settings[level]) return null;
+  if (!configuration[level]) return null;
 
   let message = '';
   if (values.length === 1) {
@@ -45,7 +47,7 @@ const logJSON = (level, ...values) => {
     message,
     timestamp: new Date().toISOString(),
   });
-  console[level](json);
+  configuration.logger(json + configuration.suffix);
   if (callbacks[level]) {
     callbacks[level](message);
   }
@@ -60,7 +62,7 @@ const on = (level, callback) => {
 
 module.exports = {
   on,
-  setLogging: (newSettings) => { settings = { ...settings, ...newSettings }; },
+  setConfiguration: (newConfiguration) => { configuration = { ...configuration, ...newConfiguration }; },
   log: (...values) => logJSON('log', ...values),
   info: (...values) => logJSON('info', ...values),
   warn: (...values) => logJSON('warn', ...values),

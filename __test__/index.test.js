@@ -68,10 +68,10 @@ const logger = require('../index');
     });
 
     test('logging off', () => {
-      logger.setLogging({ [level]: false });
+      logger.setConfiguration({ [level]: false });
       const result = logger[level]('a string');
       expect(result).toBeFalsy();
-      logger.setLogging({ [level]: true });
+      logger.setConfiguration({ [level]: true });
     });
   });
 });

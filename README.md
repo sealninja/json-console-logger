@@ -55,7 +55,7 @@ logger.error('a string', new Error('an error'));
 ```javascript
 import logger from 'json-console-logger';
 
-logger.setLogging({ log: false, info: false });
+logger.setConfiguration({ log: false, info: false });
 
 logger.log('a string');
 // => logs nothing
@@ -68,6 +68,17 @@ logger.warn('an warn string');
 
 logger.error('an error string');
 // => console.error('{"level":"ERROR","message":"an error string","timestamp":"2020-01-01T13:17:05.065Z"}');
+```
+
+## Other output than `console.log`
+
+```javascript
+import logger from 'json-console-logger';
+
+logger.setConfiguration({ logger: process.stdout.write, suffix: '\n' });
+
+logger.log('a string');
+// => process.stdout.write('{"level":"LOG","message":"a string","timestamp":"2020-01-01T13:17:05.065Z"}\n');
 ```
 
 [version-image]: https://img.shields.io/npm/v/json-console-logger.svg
