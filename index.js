@@ -61,7 +61,9 @@ const on = (level, callback) => {
 
 module.exports = {
   on,
-  setConfiguration: (newConfiguration) => { configuration = { ...configuration, ...newConfiguration }; },
+  setConfiguration: (newConfiguration) => {
+    configuration = { ...configuration, ...newConfiguration };
+  },
   log: (...values) => logJSON('log', ...values),
   info: (...values) => logJSON('info', ...values),
   warn: (...values) => logJSON('warn', ...values),
