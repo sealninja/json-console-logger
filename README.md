@@ -3,7 +3,6 @@ Super light-weight stand-in replacement for console logging to only output JSON
 
 [![NPM version](https://img.shields.io/npm/v/json-console-logger.svg?style=flat-square)](https://npmjs.org/package/json-console-logger)
 [![Downloads](https://img.shields.io/npm/dm/json-console-logger.svg?style=flat-square)](https://npmjs.org/package/json-console-logger)
-[![Dependency Status](https://img.shields.io/david/sealninja/json-console-logger?style=flat-square)](https://david-dm.org/sealninja/json-console-logger)
 
 ## Installation
 
