@@ -41,10 +41,19 @@ const logJSON = (level, ...values) => {
   if (values.length > 1) {
     message = values.map((v) => parseValue(v));
   }
+  const objects = [];
   const json = JSON.stringify({
     level: level.toUpperCase(),
     message,
     // timestamp: new Date().toISOString(),
+  }, (key, value) => {
+    // Filtering out properties
+    if (typeof value === 'object') {
+      if (objects.includes(value)) return 'object';
+      objects.push(value);
+      return value;
+    }
+    return value;
   });
   configuration.logger(json);
   if (callbacks[level]) {

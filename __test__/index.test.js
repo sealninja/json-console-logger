@@ -31,6 +31,17 @@ logger.setConfiguration({ logger: () => {} });
       expect(result).toEqual(expect.stringContaining('"message":["a string",{"an":"object"}]'));
     });
 
+    test('string + circular json', () => {
+      const object = { an: 'object' };
+      object.arr = [
+        object,
+        object,
+      ];
+      const result = logger[level]('a string', object);
+      expectAllProperties(result);
+      expect(result).toEqual(expect.stringContaining('"message":["a string",{"an":"object","arr":["object","object"]}]'));
+    });
+
     test('string + array', () => {
       const result = logger[level]('a string', ['an', 'array']);
       expectAllProperties(result);
