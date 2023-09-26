@@ -4,6 +4,7 @@ const callbacks = {};
 
 let configuration = {
   log: true,
+  debug: true,
   info: true,
   warn: true,
   error: true,
@@ -74,6 +75,7 @@ module.exports = {
     configuration = { ...configuration, ...newConfiguration };
   },
   log: (...values) => logJSON('log', ...values),
+  debug: (...values) => logJSON('debug', ...values),
   info: (...values) => logJSON('info', ...values),
   warn: (...values) => logJSON('warn', ...values),
   error: (...values) => logJSON('error', ...values),

@@ -4,7 +4,7 @@ const logger = require('../index');
 
 logger.setConfiguration({ logger: () => {} });
 
-['log', 'info', 'warn', 'error'].forEach((level) => {
+['log', 'debug', 'info', 'warn', 'error'].forEach((level) => {
   describe(level, () => {
     const expectAllProperties = (result) => {
       expect(JSON.parse(result)).toBeTruthy();
