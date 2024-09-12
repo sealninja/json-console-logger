@@ -12,13 +12,7 @@ let configuration = {
 };
 
 const parseValue = (value) => {
-  if (
-    value
-    && typeof value === 'object'
-    && value.constructor
-    && value.constructor.name
-    && value.constructor.name.endsWith('Error')
-  ) {
+  if (value && typeof value === 'object' && value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
     const error = {
       error: value.constructor.name,
       message: value.message,
@@ -43,19 +37,22 @@ const logJSON = (level, ...values) => {
     message = values.map((v) => parseValue(v));
   }
   const objects = [];
-  const json = JSON.stringify({
-    level: level.toUpperCase(),
-    message,
-    // timestamp: new Date().toISOString(),
-  }, (key, value) => {
-    // Filtering out properties
-    if (typeof value === 'object') {
-      if (objects.includes(value)) return 'object';
-      objects.push(value);
+  const json = JSON.stringify(
+    {
+      level: level.toUpperCase(),
+      message,
+      // timestamp: new Date().toISOString(),
+    },
+    (key, value) => {
+      // Filtering out properties
+      if (typeof value === 'object') {
+        if (objects.includes(value)) return 'object';
+        objects.push(value);
+        return value;
+      }
       return value;
-    }
-    return value;
-  });
+    },
+  );
   configuration.logger(json);
   if (callbacks[level]) {
     callbacks[level](json);
