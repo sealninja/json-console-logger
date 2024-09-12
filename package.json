@@ -1,6 +1,6 @@
 {
   "name": "json-console-logger",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Super light-weight stand-in replacement for console logging to only output JSON",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,5 @@
     "eslint-plugin-react": "7.35.2",
     "jest": "27.5.1",
     "prettier": "3.3.3"
-
   }
 }
