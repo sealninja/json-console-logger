@@ -3,7 +3,6 @@
   "version": "1.6.1",
   "description": "Super light-weight stand-in replacement for console logging to only output JSON",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "jest",
     "lint": "eslint index.js"

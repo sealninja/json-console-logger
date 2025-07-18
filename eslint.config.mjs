@@ -13,5 +13,8 @@ export default defineConfig([{
     prettierConfig,
     eslintConfigs.configs.javascript,
     eslintConfigs.configs.react,
-  ]}]
-);
+  ],
+  rules: {
+    "import/no-commonjs": "off",
+  }
+}]);

@@ -1,4 +1,4 @@
-/* global console */
+/* global console, module */
 /* eslint no-console: "off" */
 
 const callbacks = {};
@@ -67,7 +67,7 @@ const on = (level, callback) => {
   }
 };
 
-export default {
+module.exports = {
   debug: (...values) => logJSON('debug', ...values),
   error: (...values) => logJSON('error', ...values),
   info: (...values) => logJSON('info', ...values),
