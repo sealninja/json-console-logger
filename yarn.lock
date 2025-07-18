@@ -3994,7 +3994,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^10.1.5":
+"eslint-config-prettier@npm:10.1.5":
   version: 10.1.5
   resolution: "eslint-config-prettier@npm:10.1.5"
   peerDependencies:
@@ -4139,7 +4139,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^5.5.1":
+"eslint-plugin-prettier@npm:5.5.1":
   version: 5.5.1
   resolution: "eslint-plugin-prettier@npm:5.5.1"
   dependencies:
@@ -6144,8 +6144,8 @@ __metadata:
   dependencies:
     "@dr.pogodin/eslint-configs": "npm:0.0.8"
     eslint: "npm:9.30.1"
-    eslint-config-prettier: "npm:^10.1.5"
-    eslint-plugin-prettier: "npm:^5.5.1"
+    eslint-config-prettier: "npm:10.1.5"
+    eslint-plugin-prettier: "npm:5.5.1"
     jest: "npm:29.7.0"
     prettier: "npm:3.3.3"
   languageName: unknown
