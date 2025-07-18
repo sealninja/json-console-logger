@@ -1,14 +1,15 @@
+/* global console */
 /* eslint no-console: "off" */
 
 const callbacks = {};
 
 let configuration = {
-  log: true,
   debug: true,
-  info: true,
-  warn: true,
   error: true,
+  info: true,
+  log: true,
   logger: console.log,
+  warn: true,
 };
 
 const parseValue = (value) => {
@@ -66,14 +67,14 @@ const on = (level, callback) => {
   }
 };
 
-module.exports = {
+export default {
+  debug: (...values) => logJSON('debug', ...values),
+  error: (...values) => logJSON('error', ...values),
+  info: (...values) => logJSON('info', ...values),
+  log: (...values) => logJSON('log', ...values),
   on,
   setConfiguration: (newConfiguration) => {
     configuration = { ...configuration, ...newConfiguration };
   },
-  log: (...values) => logJSON('log', ...values),
-  debug: (...values) => logJSON('debug', ...values),
-  info: (...values) => logJSON('info', ...values),
   warn: (...values) => logJSON('warn', ...values),
-  error: (...values) => logJSON('error', ...values),
 };
