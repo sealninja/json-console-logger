@@ -8,4 +8,3 @@ pull_request_limit: 10
 automerge_dev_strategy: minor
 automerge_method: squash
 engine_update_strategy: minor
-auto_review_team_assign: developers
