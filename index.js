@@ -12,6 +12,16 @@ let configuration = {
   warn: true,
 };
 
+const preventCircularObject = (value) => {
+  try {
+    JSON.parse(JSON.stringify(value));
+    return value;
+  } catch (e) {
+    if (e.message.includes('circular')) return 'circular object';
+    return 'object';
+  }
+};
+
 const parseValue = (value) => {
   if (Array.isArray(value)) {
     return value.map((v) => parseValue(v));
@@ -20,16 +30,14 @@ const parseValue = (value) => {
   if (typeof value === 'object') {
     const object = {};
     if (Error.isError(value)) {
-      object.error = value.constructor.name;
-      object.message = value.message;
-      object.stack = value.stack;
+      const error = value.constructor.name;
+      const { message, stack } = value;
+      object.error = error;
+      object.message = message;
+      object.stack = stack;
     }
     Object.keys(value).forEach((key) => {
-      try {
-        object[key] = parseValue(JSON.parse(JSON.stringify(value[key])));
-      } catch {
-        object[key] = 'JSON console logging failed';
-      }
+      object[key] = parseValue(value[key]);
     });
     return object;
   }
@@ -42,10 +50,10 @@ const logJSON = (level, ...values) => {
 
   let message = '';
   if (values.length === 1) {
-    message = parseValue(values[0]);
+    message = parseValue(preventCircularObject(values[0]));
   }
   if (values.length > 1) {
-    message = values.map((v) => parseValue(v));
+    message = values.map((v) => parseValue(preventCircularObject(v)));
   }
   const json = JSON.stringify({
     level: level.toUpperCase(),

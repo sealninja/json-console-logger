@@ -36,7 +36,7 @@ logger.setConfiguration({ logger: () => {} });
       object.arr = [object, object];
       const result = logger[level]('a string', object);
       expectAllProperties(result);
-      expect(result).toEqual(expect.stringContaining('"message":["a string",{"an":"object","arr":"JSON console logging failed"}]'));
+      expect(result).toEqual(expect.stringContaining('"message":["a string","circular object"]'));
     });
 
     test('string + duplicate object', () => {
@@ -56,6 +56,12 @@ logger.setConfiguration({ logger: () => {} });
       const result = logger[level]('a string', new Error('an error'));
       expectAllProperties(result);
       expect(result).toEqual(expect.stringContaining('"message":["a string",{"error":"Error","message":"an error","stack":'));
+    });
+
+    test('string + nested error', () => {
+      const result = logger[level]('a string', { error: { deepError: new Error('an error') } });
+      expectAllProperties(result);
+      expect(result).toEqual(expect.stringContaining('"message":["a string",{"error":{"deepError":{"error":"Error","message":"an error","stack":'));
     });
 
     test('string + range error', () => {
