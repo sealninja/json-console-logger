@@ -27,13 +27,13 @@ const parseValue = (value) => {
     Object.keys(value).forEach((key) => {
       try {
         object[key] = parseValue(JSON.parse(JSON.stringify(value[key])));
-      } catch (e) {
+      } catch {
         object[key] = 'JSON console logging failed';
       }
     });
     return object;
   }
-  
+
   return value;
 };
 
