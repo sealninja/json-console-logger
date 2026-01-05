@@ -13,17 +13,27 @@ let configuration = {
 };
 
 const parseValue = (value) => {
-  if (value && typeof value === 'object' && value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
-    const error = {
-      error: value.constructor.name,
-      message: value.message,
-      stack: value.stack,
-    };
-    Object.keys(value).forEach((key) => {
-      error[key] = value[key];
-    });
-    return error;
+  if (Array.isArray(value)) {
+    return value.map((v) => parseValue(v));
   }
+
+  if (typeof value === 'object') {
+    const object = {};
+    if (Error.isError(value)) {
+      object.error = value.constructor.name;
+      object.message = value.message;
+      object.stack = value.stack;
+    }
+    Object.keys(value).forEach((key) => {
+      try {
+        object[key] = parseValue(JSON.parse(JSON.stringify(value[key])));
+      } catch (e) {
+        object[key] = 'JSON console logging failed';
+      }
+    });
+    return object;
+  }
+  
   return value;
 };
 
@@ -37,23 +47,11 @@ const logJSON = (level, ...values) => {
   if (values.length > 1) {
     message = values.map((v) => parseValue(v));
   }
-  const objects = [];
-  const json = JSON.stringify(
-    {
-      level: level.toUpperCase(),
-      message,
-      // timestamp: new Date().toISOString(),
-    },
-    (key, value) => {
-      // Filtering out properties
-      if (typeof value === 'object') {
-        if (objects.includes(value)) return 'object';
-        objects.push(value);
-        return value;
-      }
-      return value;
-    },
-  );
+  const json = JSON.stringify({
+    level: level.toUpperCase(),
+    message,
+    // timestamp: new Date().toISOString(),
+  });
   configuration.logger(json);
   if (callbacks[level]) {
     callbacks[level](json);

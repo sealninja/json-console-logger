@@ -33,13 +33,17 @@ logger.setConfiguration({ logger: () => {} });
 
     test('string + circular json', () => {
       const object = { an: 'object' };
-      object.arr = [
-        object,
-        object,
-      ];
+      object.arr = [object, object];
       const result = logger[level]('a string', object);
       expectAllProperties(result);
-      expect(result).toEqual(expect.stringContaining('"message":["a string",{"an":"object","arr":["object","object"]}]'));
+      expect(result).toEqual(expect.stringContaining('"message":["a string",{"an":"object","arr":"JSON console logging failed"}]'));
+    });
+
+    test('string + duplicate object', () => {
+      const object = { an: 'object' };
+      const result = logger[level]('a string', { object1: object, object2: object });
+      expectAllProperties(result);
+      expect(result).toEqual(expect.stringContaining('"message":["a string",{"object1":{"an":"object"},"object2":{"an":"object"}}]'));
     });
 
     test('string + array', () => {
