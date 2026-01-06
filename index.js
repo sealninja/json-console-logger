@@ -1,5 +1,6 @@
 /* global console, module */
 /* eslint no-console: "off" */
+/* eslint guard-for-in: "off" */
 
 const callbacks = {};
 
@@ -12,28 +13,26 @@ let configuration = {
   warn: true,
 };
 
-const parseValue = (value, seenObjects = []) => {
-  if (typeof value !== 'object') {
-    return value;
-  }
-  if (Array.isArray(value)) {
-    return value.map((v) => parseValue(v, [...seenObjects, v]));
-  }
-  const result = {};
-  if (value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
-    const error = value.constructor.name;
-    result.error = error;
-    result.message = value.message;
-    result.stack = value.stack;
-  }
-  for (const key in value) {
-    if (seenObjects.includes(value[key])) {
-      result[key] = '<circular>';
-    } else {
-      result[key] = parseValue(value[key], [...seenObjects, value[key]]);
+const parseValue = (value) => {
+  const parseObject = (obj, seen) => {
+    if (typeof obj !== 'object') {
+      return obj;
     }
-  }
-  return result;
+    if (Array.isArray(obj)) {
+      return obj.map((p) => parseObject(p, [...seen, p]));
+    }
+    const result = {};
+    if (obj.constructor && obj.constructor.name && obj.constructor.name.endsWith('Error')) {
+      result.error = obj.constructor.name;
+      result.message = obj.message;
+      result.stack = obj.stack;
+    }
+    for (const key in obj) {
+      result[key] = seen.includes(obj[key]) ? '<circular>' : parseObject(obj[key], [...seen, obj[key]]);
+    }
+    return result;
+  };
+  return parseObject(value, [value]);
 };
 
 const logJSON = (level, ...values) => {
@@ -49,7 +48,6 @@ const logJSON = (level, ...values) => {
   const json = JSON.stringify({
     level: level.toUpperCase(),
     message,
-    // timestamp: new Date().toISOString(),
   });
   configuration.logger(json);
   if (callbacks[level]) {
