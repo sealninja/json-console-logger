@@ -36,7 +36,7 @@ logger.setConfiguration({ logger: () => {} });
       object.arr = [object, object];
       const result = logger[level]('a string', object);
       expectAllProperties(result);
-      expect(result).toEqual(expect.stringContaining('"message":["a string","circular object"]'));
+      expect(result).toEqual(expect.stringContaining('message":["a string",{"an":"object","arr":[{"an":"object","arr":"<circular>"},{"an":"object","arr":"<circular>"}]}]'));
     });
 
     test('string + duplicate object', () => {

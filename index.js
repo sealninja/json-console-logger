@@ -12,37 +12,28 @@ let configuration = {
   warn: true,
 };
 
-const preventCircularObject = (value) => {
-  try {
-    JSON.parse(JSON.stringify(value));
+const parseValue = (value, seenObjects = []) => {
+  if (typeof value !== 'object') {
     return value;
-  } catch (e) {
-    if (e.message.includes('circular')) return 'circular object';
-    return 'object';
   }
-};
-
-const parseValue = (value) => {
   if (Array.isArray(value)) {
-    return value.map((v) => parseValue(v));
+    return value.map((v) => parseValue(v, [...seenObjects, v]));
   }
-
-  if (typeof value === 'object') {
-    const object = {};
-    if (value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
-      const error = value.constructor.name;
-      const { message, stack } = value;
-      object.error = error;
-      object.message = message;
-      object.stack = stack;
+  const result = {};
+  if (value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
+    const error = value.constructor.name;
+    result.error = error;
+    result.message = value.message;
+    result.stack = value.stack;
+  }
+  for (const key in value) {
+    if (seenObjects.includes(value[key])) {
+      result[key] = '<circular>';
+    } else {
+      result[key] = parseValue(value[key], [...seenObjects, value[key]]);
     }
-    Object.keys(value).forEach((key) => {
-      object[key] = parseValue(value[key]);
-    });
-    return object;
   }
-
-  return value;
+  return result;
 };
 
 const logJSON = (level, ...values) => {
@@ -50,10 +41,10 @@ const logJSON = (level, ...values) => {
 
   let message = '';
   if (values.length === 1) {
-    message = parseValue(preventCircularObject(values[0]));
+    message = parseValue(values[0]);
   }
   if (values.length > 1) {
-    message = values.map((v) => parseValue(preventCircularObject(v)));
+    message = values.map((v) => parseValue(v));
   }
   const json = JSON.stringify({
     level: level.toUpperCase(),
