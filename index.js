@@ -22,15 +22,18 @@ const parseValue = (value) => {
     if (Array.isArray(obj)) {
       return obj.map((p) => parseObject(p, [...seen, p]));
     }
+    if (obj instanceof Date) {
+      return obj.toISOString();
+    }
     const result = {};
     if (obj.constructor && obj.constructor.name && obj.constructor.name.endsWith('Error')) {
       result.error = obj.constructor.name;
       result.message = obj.message;
       result.stack = obj.stack;
     }
-    for (const key in obj) {
+    Object.keys(obj).forEach((key) => {
       result[key] = seen.includes(obj[key]) ? '<circular>' : parseObject(obj[key], [...seen, obj[key]]);
-    }
+    });
     return result;
   };
   return parseObject(value, [value]);
