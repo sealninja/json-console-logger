@@ -29,7 +29,7 @@ const parseValue = (value) => {
 
   if (typeof value === 'object') {
     const object = {};
-    if (Error.isError(value)) {
+    if (value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
       const error = value.constructor.name;
       const { message, stack } = value;
       object.error = error;
