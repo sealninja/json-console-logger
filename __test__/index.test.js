@@ -86,6 +86,12 @@ logger.setConfiguration({ logger: () => {} });
       expect(result).toEqual(expect.stringContaining('"status":400,"response":{"text":"bad request error"}'));
     });
 
+    test('string + date', () => {
+      const result = logger[level]('a string', new Date('2026-01-06T16:41:03.152Z'));
+      expectAllProperties(result);
+      expect(result).toEqual(expect.stringContaining('"message":["a string","2026-01-06T16:41:03.152Z"]'));
+    });
+
     test('callback string', () => {
       let callbackMessage;
       logger.on(level, (message) => {
