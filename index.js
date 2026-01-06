@@ -1,5 +1,6 @@
 /* global console, module */
 /* eslint no-console: "off" */
+/* eslint guard-for-in: "off" */
 
 const callbacks = {};
 
@@ -13,18 +14,25 @@ let configuration = {
 };
 
 const parseValue = (value) => {
-  if (value && typeof value === 'object' && value.constructor && value.constructor.name && value.constructor.name.endsWith('Error')) {
-    const error = {
-      error: value.constructor.name,
-      message: value.message,
-      stack: value.stack,
-    };
-    Object.keys(value).forEach((key) => {
-      error[key] = value[key];
-    });
-    return error;
-  }
-  return value;
+  const parseObject = (obj, seen) => {
+    if (typeof obj !== 'object') {
+      return obj;
+    }
+    if (Array.isArray(obj)) {
+      return obj.map((p) => parseObject(p, [...seen, p]));
+    }
+    const result = {};
+    if (obj.constructor && obj.constructor.name && obj.constructor.name.endsWith('Error')) {
+      result.error = obj.constructor.name;
+      result.message = obj.message;
+      result.stack = obj.stack;
+    }
+    for (const key in obj) {
+      result[key] = seen.includes(obj[key]) ? '<circular>' : parseObject(obj[key], [...seen, obj[key]]);
+    }
+    return result;
+  };
+  return parseObject(value, [value]);
 };
 
 const logJSON = (level, ...values) => {
@@ -37,23 +45,10 @@ const logJSON = (level, ...values) => {
   if (values.length > 1) {
     message = values.map((v) => parseValue(v));
   }
-  const objects = [];
-  const json = JSON.stringify(
-    {
-      level: level.toUpperCase(),
-      message,
-      // timestamp: new Date().toISOString(),
-    },
-    (key, value) => {
-      // Filtering out properties
-      if (typeof value === 'object') {
-        if (objects.includes(value)) return 'object';
-        objects.push(value);
-        return value;
-      }
-      return value;
-    },
-  );
+  const json = JSON.stringify({
+    level: level.toUpperCase(),
+    message,
+  });
   configuration.logger(json);
   if (callbacks[level]) {
     callbacks[level](json);
