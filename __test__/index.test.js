@@ -13,6 +13,12 @@ logger.setConfiguration({ logger: () => {} });
       expect(result).toEqual(expect.stringContaining(`"level":"${level.toUpperCase()}"`));
     };
 
+    test('null', () => {
+      const result = logger[level](null);
+      expectAllProperties(result);
+      expect(result).toEqual(expect.stringContaining('"message":null'));
+    });
+
     test('single string', () => {
       const result = logger[level]('a string');
       expectAllProperties(result);

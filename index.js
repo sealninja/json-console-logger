@@ -15,6 +15,7 @@ let configuration = {
 
 const parseValue = (value) => {
   const parseObject = (obj, seen) => {
+    if (!obj) return obj;
     if (typeof obj !== 'object') {
       return obj;
     }
