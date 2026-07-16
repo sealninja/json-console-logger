@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/sealninja/json-console-logger",
   "devDependencies": {
-    "@dr.pogodin/eslint-configs": "0.2.14",
+    "@dr.pogodin/eslint-configs": "0.3.0",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.6",
     "jest": "30.4.2",
-    "prettier": "3.8.4"
+    "prettier": "3.9.4"
   },
   "packageManager": "yarn@4.12.0"
 }
