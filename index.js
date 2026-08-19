@@ -26,8 +26,10 @@ const parseValue = (value) => {
       return obj.toISOString();
     }
     const result = {};
-    if (obj.constructor && obj.constructor.name && obj.constructor.name.endsWith('Error')) {
-      result.error = obj.constructor.name;
+    const constructorName = obj.constructor && obj.constructor.name;
+    const isErrorLike = obj instanceof Error || (typeof obj.name === 'string' && typeof obj.message === 'string' && typeof obj.stack === 'string');
+    if (isErrorLike || (constructorName && constructorName.endsWith('Error'))) {
+      result.error = constructorName && constructorName !== 'Object' ? constructorName : obj.name;
       result.message = obj.message;
       result.stack = obj.stack;
     }

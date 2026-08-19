@@ -86,6 +86,31 @@ logger.setConfiguration({ logger: () => {} });
       expect(result).toEqual(expect.stringContaining('"status":400,"response":{"text":"bad request error"}'));
     });
 
+    test('string + DOMException', () => {
+      let domException;
+      try {
+        atob('not base64!');
+      } catch (e) {
+        domException = e;
+      }
+      const result = logger[level]('a string', domException);
+      expectAllProperties(result);
+      expect(result).toEqual(expect.stringContaining('"message":["a string",{"error":"DOMException","message":"Invalid character","stack":'));
+    });
+
+    test('string + error-like object', () => {
+      const errorLike = { name: 'TimeoutException', message: 'timed out', stack: 'TimeoutException: timed out\n    at somewhere' };
+      const result = logger[level]('a string', errorLike);
+      expectAllProperties(result);
+      expect(result).toEqual(expect.stringContaining('"error":"TimeoutException","message":"timed out","stack":"TimeoutException: timed out'));
+    });
+
+    test('string + object with name and message but no stack', () => {
+      const result = logger[level]('a string', { name: 'John', message: 'hello' });
+      expectAllProperties(result);
+      expect(result).toEqual(expect.stringContaining('"message":["a string",{"name":"John","message":"hello"}]'));
+    });
+
     test('string + date', () => {
       const result = logger[level]('a string', new Date('2026-01-06T16:41:03.152Z'));
       expectAllProperties(result);
